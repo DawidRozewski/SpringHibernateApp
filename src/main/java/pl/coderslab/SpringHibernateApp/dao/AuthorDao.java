@@ -15,21 +15,22 @@ public class AuthorDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    public void read(Author author) {
+    public void persist(Author author) {
         entityManager.persist(author);
     }
 
-    public Author read(Long id) {
+    public Author findById(long id) {
         return entityManager.find(Author.class, id);
     }
 
-    private void update(Author author) {
+    public void merge(Author author) {
         entityManager.merge(author);
     }
 
-    private void delete(Author author) {
-        entityManager.remove(entityManager.contains(author) ?
-                author : entityManager.merge(author));
+    public void remove(long id) {
+        Author author = findById(id);
+        entityManager.remove(entityManager.contains(author) ? author : entityManager.merge(author));
+
     }
 
 }
