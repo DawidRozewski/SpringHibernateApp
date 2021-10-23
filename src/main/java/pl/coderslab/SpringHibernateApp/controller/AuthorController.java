@@ -12,7 +12,7 @@ import pl.coderslab.SpringHibernateApp.entity.Author;
 @RequestMapping("/author")
 public class AuthorController {
 
-    private AuthorDao authorDao;
+    private final AuthorDao authorDao;
 
     public AuthorController(AuthorDao authorDao) {
         this.authorDao = authorDao;
@@ -49,13 +49,5 @@ public class AuthorController {
         authorDao.remove(id);
         return "Usunieto autora";
     }
-
-
-
-
-
-
-
-
 
 }

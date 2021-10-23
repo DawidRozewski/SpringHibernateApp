@@ -12,7 +12,6 @@ import pl.coderslab.SpringHibernateApp.entity.Publisher;
 @RequestMapping("/publisher")
 public class PublisherController {
 
-
     private final PublisherDao publisherDao;
 
     public PublisherController(PublisherDao publisherDao) {

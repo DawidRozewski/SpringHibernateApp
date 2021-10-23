@@ -6,48 +6,55 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.SpringHibernateApp.dao.BookDao;
+import pl.coderslab.SpringHibernateApp.dao.PublisherDao;
 import pl.coderslab.SpringHibernateApp.entity.Book;
+import pl.coderslab.SpringHibernateApp.entity.Publisher;
 
 @Controller
 @RequestMapping("/book")
 public class BookController {
 
     private final BookDao bookDao;
-
-    public BookController(BookDao bookDao) {
+    private final PublisherDao publisherDao;
+    public BookController(BookDao bookDao, PublisherDao publisherDao) {
         this.bookDao = bookDao;
+        this.publisherDao = publisherDao;
     }
 
-    @GetMapping("/book/add")
+    @GetMapping("/save")
     @ResponseBody
-    public String addBook() {
+    public String save() {
+        Publisher publisher = new Publisher();
+        publisher.setName("HELION");
+        publisherDao.persist(publisher);
         Book book = new Book();
         book.setTitle("Thinking in Java");
         book.setRating(10);
         book.setDescription("Amazing book");
+        book.setPublisher(publisher);
         bookDao.persist(book);
         return book.toString();
 
     }
 
-    @GetMapping("/book/get/{id}")
+    @GetMapping("/find/{id}")
     @ResponseBody
-    public String getBook(@PathVariable Long id) {
+    public String findById(@PathVariable Long id) {
         return bookDao.findById(id).toString();
     }
 
-    @GetMapping("/book/update/{id}/{title}")
+    @GetMapping("/update/{id}/{title}")
     @ResponseBody
-    public String updateBook(@PathVariable Long id, @PathVariable String title) {
+    public String update(@PathVariable Long id, @PathVariable String title) {
         Book book = bookDao.findById(id);
         book.setTitle(title);
         bookDao.merge(book);
         return book.toString();
     }
 
-    @GetMapping("/book/delete/{id}")
+    @GetMapping("/remove/{id}}")
     @ResponseBody
-    public String deleteBook(@PathVariable Long id) {
+    public String remove(@PathVariable Long id) {
         Book book = bookDao.findById(id);
         bookDao.remove(book);
         return "Usunieto ksiazke";
