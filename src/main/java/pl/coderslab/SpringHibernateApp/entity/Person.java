@@ -22,8 +22,7 @@ public class Person {
     private String password;
     private String email;
 
-    @OneToOne
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @OneToOne(cascade = CascadeType.ALL)
     private PersonDetails personDetails;
 
 }

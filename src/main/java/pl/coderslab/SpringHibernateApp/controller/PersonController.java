@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.SpringHibernateApp.dao.PersonDao;
-import pl.coderslab.SpringHibernateApp.dao.PersonDetailsDao;
 import pl.coderslab.SpringHibernateApp.entity.Person;
 import pl.coderslab.SpringHibernateApp.entity.PersonDetails;
 
@@ -15,18 +14,21 @@ import pl.coderslab.SpringHibernateApp.entity.PersonDetails;
 public class PersonController {
 
     private final PersonDao personDao;
-    private final PersonDetailsDao personDetailsDao;
-
-    public PersonController(PersonDao personDao, PersonDetailsDao personDetailsDao) {
+    public PersonController(PersonDao personDao) {
         this.personDao = personDao;
-        this.personDetailsDao = personDetailsDao;
     }
 
     @GetMapping("/save")
     @ResponseBody
     public String persist() {
+        PersonDetails personDetails = new PersonDetails();
+        personDetails.setFirstName("Jan");
+        personDetails.setLastName("Kowalski");
+        personDetails.setCity("Gniezno");
+        personDetails.setStreetNumber(44);
+        personDetails.setStreet("Gnieznieska");
+
         Person person = new Person();
-        PersonDetails personDetails = personDetailsDao.findById(1);
         person.setPersonDetails(personDetails);
         person.setLogin("500kg");
         person.setPassword("tajne");
