@@ -21,5 +21,7 @@ public class Person {
     private String password;
     private String email;
 
+    @OneToOne(optional = false)
+    private PersonDetails personDetails;
 
 }
