@@ -6,22 +6,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.SpringHibernateApp.dao.PersonDao;
+import pl.coderslab.SpringHibernateApp.dao.PersonDetailsDao;
 import pl.coderslab.SpringHibernateApp.entity.Person;
+import pl.coderslab.SpringHibernateApp.entity.PersonDetails;
 
 @Controller
 @RequestMapping("/person")
 public class PersonController {
 
     private final PersonDao personDao;
+    private final PersonDetailsDao personDetailsDao;
 
-    public PersonController(PersonDao personDao) {
+    public PersonController(PersonDao personDao, PersonDetailsDao personDetailsDao) {
         this.personDao = personDao;
+        this.personDetailsDao = personDetailsDao;
     }
 
     @GetMapping("/save")
     @ResponseBody
     public String persist() {
         Person person = new Person();
+        PersonDetails personDetails = personDetailsDao.findById(1);
+        person.setPersonDetails(personDetails);
         person.setLogin("500kg");
         person.setPassword("tajne");
         person.setEmail("tajnyEmail@gmail.com");
@@ -37,11 +43,11 @@ public class PersonController {
         return person.toString();
     }
 
-    @GetMapping("/update/{id}/{firstName}")
+    @GetMapping("/update/{id}/{login}")
     @ResponseBody
-    public String merge(@PathVariable long id, @PathVariable String firstName) {
+    public String merge(@PathVariable long id, @PathVariable String login) {
         Person person = personDao.findById(id);
-        person.setEmail("zmergowanyEmail@gmail.com");
+        person.setLogin(login);
         return person.toString();
     }
 
