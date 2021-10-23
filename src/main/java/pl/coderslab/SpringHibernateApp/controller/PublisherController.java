@@ -1,5 +1,6 @@
 package pl.coderslab.SpringHibernateApp.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.SpringHibernateApp.dao.PublisherDao;
 import pl.coderslab.SpringHibernateApp.entity.Publisher;
 
+@Controller
+@RequestMapping("/publisher")
 public class PublisherController {
 
 
