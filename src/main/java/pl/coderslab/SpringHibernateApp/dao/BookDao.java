@@ -31,5 +31,4 @@ public class BookDao {
         entityManager.remove(entityManager.contains(book) ? book : entityManager.merge(book));
 
     }
-
 }

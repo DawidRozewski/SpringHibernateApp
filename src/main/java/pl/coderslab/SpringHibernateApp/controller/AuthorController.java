@@ -22,8 +22,8 @@ public class AuthorController {
     @ResponseBody
     public String persist() {
         Author author = new Author();
-        author.setFirstName("Jan");
-        author.setLastName("Kowalski");
+        author.setFirstName("Elon");
+        author.setLastName("Musk");
         authorDao.persist(author);
         return author.toString();
     }
