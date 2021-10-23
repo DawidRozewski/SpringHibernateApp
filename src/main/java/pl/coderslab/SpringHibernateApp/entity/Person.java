@@ -4,6 +4,7 @@ package pl.coderslab.SpringHibernateApp.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
@@ -22,6 +23,7 @@ public class Person {
     private String email;
 
     @OneToOne(optional = false)
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private PersonDetails personDetails;
 
 }
