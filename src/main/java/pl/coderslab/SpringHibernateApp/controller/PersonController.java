@@ -30,7 +30,7 @@ public class PersonController {
 
     }
 
-    @GetMapping("/finf/{id}")
+    @GetMapping("/find/{id}")
     @ResponseBody
     public String findById(@PathVariable long id) {
         Person person = personDao.findById(id);
