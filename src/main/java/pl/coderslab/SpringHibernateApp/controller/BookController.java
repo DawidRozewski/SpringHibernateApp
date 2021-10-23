@@ -19,13 +19,11 @@ public class BookController {
 
     @GetMapping("/book/add")
     @ResponseBody
-    public String addBook(@RequestParam String title,
-                          @RequestParam Integer rating,
-                          @RequestParam String description) {
+    public String addBook() {
         Book book = new Book();
-        book.setTitle(title);
-        book.setRating(rating);
-        book.setDescription(description);
+        book.setTitle("Thinking in Java");
+        book.setRating(10);
+        book.setDescription("Amazing book");
         bookDao.saveBook(book);
         return "Id dodanej książki to: " + book.getId();
 
