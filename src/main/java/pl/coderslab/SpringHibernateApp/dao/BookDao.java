@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+
 @Repository
 @Transactional
 public class BookDao {
@@ -30,4 +31,5 @@ public class BookDao {
         entityManager.remove(entityManager.contains(book) ?
                 book : entityManager.merge(book));
     }
+
 }
