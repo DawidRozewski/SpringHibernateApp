@@ -23,32 +23,32 @@ public class BookController {
         book.setTitle("Thinking in Java");
         book.setRating(10);
         book.setDescription("Amazing book");
-        bookDao.saveBook(book);
-        return "Id dodanej książki to: " + book.getId();
+        bookDao.persist(book);
+        return book.toString();
 
     }
 
     @GetMapping("/book/get/{id}")
     @ResponseBody
     public String getBook(@PathVariable Long id) {
-        return bookDao.findId(id).toString();
+        return bookDao.findById(id).toString();
     }
 
     @GetMapping("/book/update/{id}/{title}")
     @ResponseBody
     public String updateBook(@PathVariable Long id, @PathVariable String title) {
-        Book book = bookDao.findId(id);
+        Book book = bookDao.findById(id);
         book.setTitle(title);
-        bookDao.update(book);
+        bookDao.merge(book);
         return book.toString();
     }
 
     @GetMapping("/book/delete/{id}")
     @ResponseBody
     public String deleteBook(@PathVariable Long id) {
-        Book book = bookDao.findId(id);
-        bookDao.delete(book);
-        return "deleted";
+        Book book = bookDao.findById(id);
+        bookDao.remove(book);
+        return "Usunieto ksiazke";
     }
 
 

@@ -31,5 +31,4 @@ public class PublisherDao {
         entityManager.remove(entityManager.contains(publisher) ? publisher : entityManager.merge(publisher));
     }
 
-
 }
