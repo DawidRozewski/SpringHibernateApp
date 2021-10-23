@@ -15,11 +15,11 @@ public class AuthorDao {
     @PersistenceContext
     EntityManager entityManager;
 
-    public void saveAuthor(Author author) {
+    public void read(Author author) {
         entityManager.persist(author);
     }
 
-    public Author findId(Long id) {
+    public Author read(Long id) {
         return entityManager.find(Author.class, id);
     }
 
