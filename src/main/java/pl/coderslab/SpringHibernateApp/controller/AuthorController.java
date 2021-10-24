@@ -62,7 +62,7 @@ public class AuthorController {
         return allAuthors.stream()
                 .map(author -> author.getId() +
                         ": " + author.getFirstName() +
-                        ": " + author.getLastName())
+                        " " + author.getLastName())
                 .collect(Collectors.joining("<br />"));
     }
 

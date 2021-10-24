@@ -43,5 +43,10 @@ public class BookDao {
         return query.getResultList();
    }
 
+   public List<Book> findBookWithPublisher() {
+        Query query = entityManager.createQuery("SELECT b FROM Book b WHERE b.publisher IS NOT NULL");
+       return query.getResultList();
+   }
+
 
 }
