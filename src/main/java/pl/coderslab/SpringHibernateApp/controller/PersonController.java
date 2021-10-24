@@ -1,10 +1,7 @@
 package pl.coderslab.SpringHibernateApp.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.SpringHibernateApp.dao.PersonDao;
 import pl.coderslab.SpringHibernateApp.entity.Person;
 import pl.coderslab.SpringHibernateApp.entity.PersonDetails;
@@ -17,7 +14,25 @@ public class PersonController {
     public PersonController(PersonDao personDao) {
         this.personDao = personDao;
     }
-
+// METODY DO OBLSUGI PRZEZ @RequestParam
+//    @GetMapping("/form")
+//    public String showForm() {
+//        return "/person/personForm";
+//    }
+//
+//    @PostMapping("/form")
+//    @ResponseBody
+//    public String saveForm(@RequestParam String login,
+//                           @RequestParam String password,
+//                           @RequestParam String email) {
+//        Person person = new Person();
+//        person.setLogin(login);
+//        person.setEmail(email);
+//        person.setPassword(password);
+//        personDao.persist(person);
+//        return "Udalo sie zapisac osobe";
+//
+//    }
 
     @GetMapping("/save")
     @ResponseBody
