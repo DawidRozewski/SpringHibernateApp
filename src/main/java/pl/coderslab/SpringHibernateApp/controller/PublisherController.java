@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.SpringHibernateApp.dao.PublisherDao;
+import pl.coderslab.SpringHibernateApp.entity.Book;
 import pl.coderslab.SpringHibernateApp.entity.Publisher;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/publisher")
@@ -48,6 +52,15 @@ public class PublisherController {
     public String remove(@PathVariable long id) {
         publisherDao.remove(id);
         return "Usunieto wydawce";
+    }
+
+    @GetMapping("/all")
+    @ResponseBody
+    public String findAll()  {
+        List<Publisher> all = publisherDao.findAll();
+        return all.stream()
+                .map(publisher -> publisher.getId() + ": " + publisher.getName())
+                .collect(Collectors.joining("<br />"));
     }
 
 }

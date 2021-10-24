@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.SpringHibernateApp.dao.AuthorDao;
 import pl.coderslab.SpringHibernateApp.entity.Author;
+import pl.coderslab.SpringHibernateApp.entity.Publisher;
+
+import javax.persistence.Query;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/author")
@@ -48,6 +53,17 @@ public class AuthorController {
     public String remove(@PathVariable long id) {
         authorDao.remove(id);
         return "Usunieto autora";
+    }
+
+    @GetMapping("/all")
+    @ResponseBody
+    public String findAll()  {
+        List<Author> allAuthors = authorDao.findAll();
+        return allAuthors.stream()
+                .map(author -> author.getId() +
+                        ": " + author.getFirstName() +
+                        ": " + author.getLastName())
+                .collect(Collectors.joining("<br />"));
     }
 
 }
