@@ -89,9 +89,9 @@ public class BookController {
                 .collect(Collectors.joining("<br />"));
     }
 
-    @GetMapping("/book-publisher")
+    @GetMapping("/publisher/any")
     @ResponseBody
-    public String findBookByPublisher() {
+    public String findWithAnyPublisher() {
         List<Book> bookList = bookDao.findBookWithPublisher();
         return bookList.stream()
                 .map(book -> book.getId() +

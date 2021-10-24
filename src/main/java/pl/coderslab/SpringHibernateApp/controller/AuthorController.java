@@ -60,9 +60,7 @@ public class AuthorController {
     public String findAll()  {
         List<Author> allAuthors = authorDao.findAll();
         return allAuthors.stream()
-                .map(author -> author.getId() +
-                        ": " + author.getFirstName() +
-                        " " + author.getLastName())
+                .map(Author::getFirstName)
                 .collect(Collectors.joining("<br />"));
     }
 

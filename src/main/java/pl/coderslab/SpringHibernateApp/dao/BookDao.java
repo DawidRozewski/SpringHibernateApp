@@ -49,9 +49,9 @@ public class BookDao {
         Query query = entityManager.createQuery("SELECT b FROM Book b WHERE b.publisher IS NOT NULL");
        return query.getResultList();
    }
-    public List<Book> findAllByPublisher(long id) {
+    public List<Book> findAllByPublisher(long publisherId) {
         Query query = entityManager.createQuery("SELECT b FROM Book b WHERE b.publisher.id = :id");
-        query.setParameter("id", id);
+        query.setParameter("id", publisherId);
         return query.getResultList();
     }
     public List<Book> findAllByAuthor(Author author) {
