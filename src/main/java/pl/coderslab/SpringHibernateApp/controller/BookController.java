@@ -78,4 +78,17 @@ public class BookController {
                 .collect(Collectors.joining("<br />"));
     }
 
+    @GetMapping("/rating/{rating}")
+    @ResponseBody
+    public String findAllByRating(@PathVariable int rating) {
+        List<Book> allBooksByRating = bookDao.findAllByRating(rating);
+        return allBooksByRating.stream()
+                .map(book -> book.getId() +
+                        ": " + book.getTitle() +
+                        ": " + book.getRating())
+                .collect(Collectors.joining("<br />"));
+    }
+
+
+
 }
