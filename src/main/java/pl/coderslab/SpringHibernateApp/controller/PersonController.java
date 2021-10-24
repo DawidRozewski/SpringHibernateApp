@@ -1,6 +1,7 @@
 package pl.coderslab.SpringHibernateApp.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.SpringHibernateApp.dao.PersonDao;
 import pl.coderslab.SpringHibernateApp.entity.Person;
@@ -14,6 +15,23 @@ public class PersonController {
     public PersonController(PersonDao personDao) {
         this.personDao = personDao;
     }
+
+    @GetMapping("/form")
+    public String showForm(Model model) {
+        model.addAttribute("person", new Person());
+        return "/person/personForm";
+    }
+
+    @PostMapping("/form")
+    @ResponseBody
+    public String saveForm(@ModelAttribute("person") Person testPerson) {
+        personDao.persist(testPerson);
+        return "Zapisano osobe.";
+    }
+
+
+
+
 // METODY DO OBLSUGI PRZEZ @RequestParam
 //    @GetMapping("/form")
 //    public String showForm() {

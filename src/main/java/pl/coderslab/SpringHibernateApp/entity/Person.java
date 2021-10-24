@@ -9,7 +9,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "people")
+@Table(name = "person")
 @Getter
 @Setter
 @ToString
