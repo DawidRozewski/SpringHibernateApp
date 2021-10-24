@@ -100,14 +100,23 @@ public class BookController {
                 .collect(Collectors.joining("<br />"));
     }
 
-    @GetMapping("/byPublisher/{id}")
+    @GetMapping("/publisher/{id}")
     @ResponseBody
-    public String findBookByPublisher(@PathVariable long id) {
-        List<Book> bookList = bookDao.findBookByPublisher(id);
+    public String findBookByPublisher(@PathVariable long publisherId) {
+        List<Book> bookList = bookDao.findAllByPublisher(publisherId);
         return bookList.stream()
                 .map(book -> book.getId() +
-                        ": " + book.getTitle() +
-                        " " + book.getPublisher())
+                        ": " + book.getTitle())
+                .collect(Collectors.joining("<br />"));
+    }
+  @GetMapping("/author/{id}")
+    @ResponseBody
+    public String findBookByAuthor(@PathVariable long authorId) {
+        Author author = authorDao.findById(authorId);
+        List<Book> bookList = bookDao.findAllByAuthor(author);
+        return bookList.stream()
+                .map(book -> book.getId() +
+                        ": " + book.getTitle())
                 .collect(Collectors.joining("<br />"));
     }
 

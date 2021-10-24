@@ -1,7 +1,9 @@
 package pl.coderslab.SpringHibernateApp.dao;
 
 import org.springframework.stereotype.Repository;
+import pl.coderslab.SpringHibernateApp.entity.Author;
 import pl.coderslab.SpringHibernateApp.entity.Book;
+import pl.coderslab.SpringHibernateApp.entity.Publisher;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -47,9 +49,15 @@ public class BookDao {
         Query query = entityManager.createQuery("SELECT b FROM Book b WHERE b.publisher IS NOT NULL");
        return query.getResultList();
    }
-    public List<Book> findBookByPublisher(long id) {
+    public List<Book> findAllByPublisher(long id) {
         Query query = entityManager.createQuery("SELECT b FROM Book b WHERE b.publisher.id = :id");
         query.setParameter("id", id);
+        return query.getResultList();
+    }
+    public List<Book> findAllByAuthor(Author author) {
+        long authorId = author.getId();
+        Query query = entityManager.createQuery("SELECT b FROM Book b JOIN b.authors a WHERE a = :auth");
+        query.setParameter("auth", author);
         return query.getResultList();
     }
 
