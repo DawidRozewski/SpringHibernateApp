@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Table(name = "authors")
@@ -19,5 +18,9 @@ public class Author {
     private Long id;
     private String firstName;
     private String lastName;
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 
 }
