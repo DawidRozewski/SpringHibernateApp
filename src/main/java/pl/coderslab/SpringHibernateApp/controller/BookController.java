@@ -91,8 +91,19 @@ public class BookController {
 
     @GetMapping("/book-publisher")
     @ResponseBody
-    public String findBookWithPublisher() {
+    public String findBookByPublisher() {
         List<Book> bookList = bookDao.findBookWithPublisher();
+        return bookList.stream()
+                .map(book -> book.getId() +
+                        ": " + book.getTitle() +
+                        " " + book.getPublisher())
+                .collect(Collectors.joining("<br />"));
+    }
+
+    @GetMapping("/byPublisher/{id}")
+    @ResponseBody
+    public String findBookByPublisher(@PathVariable long id) {
+        List<Book> bookList = bookDao.findBookByPublisher(id);
         return bookList.stream()
                 .map(book -> book.getId() +
                         ": " + book.getTitle() +
