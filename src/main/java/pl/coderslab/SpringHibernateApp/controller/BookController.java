@@ -13,6 +13,7 @@ import pl.coderslab.SpringHibernateApp.entity.Book;
 import pl.coderslab.SpringHibernateApp.entity.Publisher;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/book")
@@ -67,6 +68,14 @@ public class BookController {
         Book book = bookDao.findById(id);
         bookDao.remove(book);
         return "Usunieto ksiazke";
+    }
+        @GetMapping("/all")
+        @ResponseBody
+        public String findAll()  {
+         List<Book> allBooks = bookDao.findAll();
+        return allBooks.stream()
+                .map(book -> book.getId() + ": " + book.getTitle())
+                .collect(Collectors.joining("<br />"));
     }
 
 }
