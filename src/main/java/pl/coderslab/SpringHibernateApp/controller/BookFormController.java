@@ -26,7 +26,13 @@ public class BookFormController {
         this.authorDao = authorDao;
     }
 
-    @GetMapping("/show")
+    @GetMapping("/all")
+    public String showAllBooks(Model model) {
+        model.addAttribute("books", bookDao.findAll());
+        return "/book/bookListing";
+    }
+
+    @GetMapping("/add")
     public String showBookForm(Model model) {
         model.addAttribute("book", new Book());
         return "/book/bookForm";
@@ -38,20 +44,18 @@ public class BookFormController {
         return "redirect:/book/form/all";
     }
 
-    @GetMapping("/all")
-    public String showAllBooks(Model model) {
-        model.addAttribute("books", bookDao.findAll());
-        return "/book/bookListing";
-    }
-
     @GetMapping("/edit/{id}")
-    public String editBook(@PathVariable long id, Model model) {
-        Book book = bookDao.findById(id);
-        model.addAttribute("book", book);
-        return "editForm";
-
-
+    public String showFormToEdit(@PathVariable long id, Model model) {
+        model.addAttribute("book", bookDao.findById(id));
+        return "/book/bookForm";
     }
+
+    @PostMapping("/edit/{id}")
+    public String editBook(@ModelAttribute("book") @PathVariable long id) {
+        bookDao.merge(bookDao.findById(id));
+        return "redirect:/book/form/all";
+    }
+
 
     @ModelAttribute("publishers")
     public List<Publisher> publishers() {

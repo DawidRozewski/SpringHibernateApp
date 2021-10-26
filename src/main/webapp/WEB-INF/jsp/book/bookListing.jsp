@@ -10,8 +10,8 @@
     <c:forEach items="${book.authors}" var="a" varStatus="loop">
         <c:out value="${a.firstName} ${a.lastName}"/><c:if test="${loop.index + 1 lt b.authors.size()}">; </c:if>
     </c:forEach><br/>
-    <a href="/book/form/show">Edit</a>
-    <a href="/book/form/show">Delete</a>
+    <a href="/book/form/edit/${book.id}">Edit</a>
+    <a href="/book/form/remove/${book.id}">Delete</a>
     <hr>
 </c:forEach>
 
