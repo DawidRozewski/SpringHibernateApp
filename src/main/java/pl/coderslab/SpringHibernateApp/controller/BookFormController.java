@@ -2,10 +2,7 @@ package pl.coderslab.SpringHibernateApp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.SpringHibernateApp.dao.AuthorDao;
 import pl.coderslab.SpringHibernateApp.dao.BookDao;
 import pl.coderslab.SpringHibernateApp.dao.PublisherDao;
@@ -40,10 +37,20 @@ public class BookFormController {
         bookDao.persist(book);
         return "redirect:/book/form/all";
     }
+
     @GetMapping("/all")
     public String showAllBooks(Model model) {
         model.addAttribute("books", bookDao.findAll());
         return "/book/bookListing";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable long id, Model model) {
+        Book book = bookDao.findById(id);
+        model.addAttribute("book", book);
+        return "editForm";
+
+
     }
 
     @ModelAttribute("publishers")
@@ -55,8 +62,6 @@ public class BookFormController {
     public List<Author> authors() {
         return authorDao.findAll();
     }
-
-
 
 
 }

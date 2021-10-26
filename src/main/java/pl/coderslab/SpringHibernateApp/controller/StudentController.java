@@ -3,7 +3,7 @@ package pl.coderslab.SpringHibernateApp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.SpringHibernateApp.Student;
+import pl.coderslab.SpringHibernateApp.model.Student;
 
 import java.util.Arrays;
 import java.util.List;

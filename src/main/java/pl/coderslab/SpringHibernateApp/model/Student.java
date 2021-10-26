@@ -1,4 +1,4 @@
-package pl.coderslab.SpringHibernateApp;
+package pl.coderslab.SpringHibernateApp.model;
 
 import lombok.Getter;
 import lombok.Setter;
