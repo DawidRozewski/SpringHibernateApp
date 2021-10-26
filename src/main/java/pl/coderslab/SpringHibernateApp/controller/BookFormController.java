@@ -10,6 +10,7 @@ import pl.coderslab.SpringHibernateApp.entity.Author;
 import pl.coderslab.SpringHibernateApp.entity.Book;
 import pl.coderslab.SpringHibernateApp.entity.Publisher;
 
+import javax.swing.*;
 import java.util.List;
 
 @Controller
@@ -38,22 +39,28 @@ public class BookFormController {
         return "/book/bookForm";
     }
 
-    @PostMapping("/save")
-    public String saveBook(@ModelAttribute("book") Book book) {
+    @PostMapping("/add")
+    public String save(@ModelAttribute("book") Book book) {
         bookDao.persist(book);
         return "redirect:/book/form/all";
     }
 
     @GetMapping("/edit/{id}")
-    public String showFormToEdit(@PathVariable long id, Model model) {
+    public String prepareToEdit(@PathVariable long id, Model model) {
         model.addAttribute("book", bookDao.findById(id));
         return "/book/bookForm";
     }
 
     @PostMapping("/edit/{id}")
-    public String editBook(@ModelAttribute("book") @PathVariable long id) {
+    public String merge(@ModelAttribute("book") @PathVariable long id) {
         bookDao.merge(bookDao.findById(id));
         return "redirect:/book/form/all";
+    }
+
+    @GetMapping("/remove/{id}")
+    public String prepareToRemove(@PathVariable long id, Model model) {
+        model.addAttribute("book", bookDao.findById(id));
+        return "/book/remove";
     }
 
 
