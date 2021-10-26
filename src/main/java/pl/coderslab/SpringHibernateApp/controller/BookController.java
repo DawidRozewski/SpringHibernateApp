@@ -65,8 +65,7 @@ public class BookController {
     @GetMapping("/remove/{id}}")
     @ResponseBody
     public String remove(@PathVariable Long id) {
-        Book book = bookDao.findById(id);
-        bookDao.remove(book);
+        bookDao.remove(id);
         return "Usunieto ksiazke";
     }
         @GetMapping("/all")
