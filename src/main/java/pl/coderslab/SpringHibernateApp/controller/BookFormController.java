@@ -62,6 +62,13 @@ public class BookFormController {
         model.addAttribute("book", bookDao.findById(id));
         return "/book/remove";
     }
+    @PostMapping("/remove/{id}")
+    public String remove(@RequestParam String confirmed, @PathVariable long id) {
+        if ("yes".equals(confirmed)) {
+            bookDao.remove(id);
+        }
+        return "redirect:/book/form/all";
+    }
 
 
     @ModelAttribute("publishers")
