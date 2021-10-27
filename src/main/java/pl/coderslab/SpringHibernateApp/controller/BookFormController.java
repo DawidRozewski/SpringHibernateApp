@@ -69,13 +69,13 @@ public class BookFormController {
         return "redirect:/book/form/all";
     }
 
-    @GetMapping("/remove/{id}")
-    public String prepareToRemove(@PathVariable long id, Model model) {
+    @GetMapping("/remove")
+    public String prepareToRemove(@RequestParam long id, Model model) {
         model.addAttribute("book", bookDao.findById(id));
         return "/book/remove";
     }
-    @PostMapping("/remove/{id}")
-    public String remove(@RequestParam String confirmed, @PathVariable long id) {
+    @PostMapping("/remove")
+    public String remove(@RequestParam String confirmed, @RequestParam long id) {
         if ("yes".equals(confirmed)) {
             bookDao.remove(id);
         }
