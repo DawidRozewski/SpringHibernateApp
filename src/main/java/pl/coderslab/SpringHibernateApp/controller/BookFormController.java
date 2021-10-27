@@ -45,15 +45,27 @@ public class BookFormController {
         return "redirect:/book/form/all";
     }
 
-    @GetMapping("/edit/{id}")
-    public String prepareToEdit(@PathVariable long id, Model model) {
+//    @GetMapping("/edit/{id}")
+//    public String prepareToEdit(@PathVariable long id, Model model) {
+//        model.addAttribute("book", bookDao.findById(id));
+//        return "/book/bookForm";
+//    }
+//
+//    @PostMapping("/edit/{id}")
+//    public String merge(@ModelAttribute("book") @PathVariable long id) {
+//        bookDao.merge(bookDao.findById(id));
+//        return "redirect:/book/form/all";
+//    }
+//
+    @GetMapping("/edit")
+    public String prepareToEdit(@RequestParam long id, Model model) {
         model.addAttribute("book", bookDao.findById(id));
         return "/book/bookForm";
     }
 
-    @PostMapping("/edit/{id}")
-    public String merge(@ModelAttribute("book") @PathVariable long id) {
-        bookDao.merge(bookDao.findById(id));
+    @PostMapping("/edit")
+    public String merge(@ModelAttribute("book") Book book) {
+        bookDao.merge(book);
         return "redirect:/book/form/all";
     }
 
