@@ -3,7 +3,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 
 <head>
-    <title>Authors</title>
+    <title>Books</title>
     <style>
         table, th, td {
             border-collapse: collapse;
@@ -38,5 +38,6 @@
     </c:forEach>
 
 </table>
-<a href="/book/form/add">Add new book</a>
+<a href="/book/form/add">Add new book</a><br/>
+<strong> <a href="http://localhost:8080/">Stronga głowna</a></strong>
 </body>
