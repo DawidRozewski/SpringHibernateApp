@@ -25,7 +25,7 @@ public class AuthorDao {
         return entityManager.find(Author.class, id);
     }
 
-    public void merge(Author author) {
+    public void merge(Author author){
         entityManager.merge(author);
     }
 

@@ -7,5 +7,5 @@
     Description: <form:textarea path="description" cols="15" rows="10"/><br/>
     Publisher: <form:select path="publisher.id" items="${publishers}" itemLabel="name" itemValue="id"/><br/>
     Authors: <form:select path="authors" items="${authors}" itemValue="id" itemLabel="fullName" multiple="true"/><br/>
-<input type="submit" value="Add book">
+<input type="submit" value="Save">
 </form:form>

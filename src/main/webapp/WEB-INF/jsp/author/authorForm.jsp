@@ -5,5 +5,5 @@
     <form:hidden path="id"/>
     First name: <form:input path="firstName"/><br>
     Last name: <form:input path="lastName"/><br>
-    <input type="submit" value="Zapisz">
+    <input type="submit" value="Save">
 </form:form>

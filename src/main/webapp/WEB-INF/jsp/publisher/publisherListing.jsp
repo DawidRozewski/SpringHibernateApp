@@ -31,7 +31,8 @@
     </c:forEach>
 
 </table>
-<strong> <a href="add">Add new publisher</a></strong><br/>
-<strong> <a href="http://localhost:8080/">Strona głowna</a></strong>
+<br/>
+<strong> <a href="add">Add new publisher</a></strong><br/><br/>
+<strong> <a href="http://localhost:8080/">Main page</a></strong>
 
 </body>

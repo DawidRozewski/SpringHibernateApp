@@ -38,6 +38,7 @@
     </c:forEach>
 
 </table>
-<a href="/book/form/add">Add new book</a><br/>
-<strong> <a href="http://localhost:8080/">Stronga głowna</a></strong>
+<br/>
+<a href="/book/form/add">Add new book</a><br/><br/>
+<strong> <a href="http://localhost:8080/">Main page</a></strong>
 </body>
