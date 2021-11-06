@@ -3,6 +3,7 @@
 <h2>Add new book</h2>
 <form:form modelAttribute="book">
     <form:hidden path="id"/>
+
     Title: <form:input path="title"/><br/>
     <form:errors path="title"/>
 

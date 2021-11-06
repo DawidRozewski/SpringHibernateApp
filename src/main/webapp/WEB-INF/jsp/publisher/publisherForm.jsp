@@ -4,5 +4,13 @@
 <form:form modelAttribute="publisher">
     <form:hidden path="id"/>
     Name: <form:input path="name"/><br>
+    <form:errors path="name"/><br/>
+
+    NIP: <form:input path="nip"/><br/>
+    <form:errors path="nip"/><br/>
+
+    Regon: <form:input path="regon"/><br/>
+    <form:errors path="regon"/><br/>
+
     <input type="submit" value="Zapisz">
 </form:form>

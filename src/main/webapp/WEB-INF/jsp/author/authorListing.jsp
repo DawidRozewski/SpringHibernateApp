@@ -17,7 +17,9 @@
 <table>
     <tr>
         <th>Id</th>
-        <th>Fullname</th>
+        <th>FullName</th>
+        <th>Email</th>
+        <th>PESEL</th>
         <th>Edit / Remove</th>
     </tr>
 
@@ -25,6 +27,8 @@
         <tr>
             <td>${a.id}</td>
             <td>${a.fullName}</td>
+            <td>${a.email}</td>
+            <td>${a.pesel}</td>
             <td> <a href="edit?id=${a.id}">Edit</a>
                 <a href="remove?id=${a.id}">Remove</a></td>
         </tr>

@@ -2,9 +2,12 @@ package pl.coderslab.SpringHibernateApp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.SpringHibernateApp.dao.AuthorDao;
 import pl.coderslab.SpringHibernateApp.entity.Author;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/author/form")
@@ -29,7 +32,10 @@ public class AuthorFormController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("author") Author author) {
+    public String save(@ModelAttribute("author") @Valid Author author, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/author/authorForm";
+        }
         authorDao.persist(author);
         return "redirect:/author/form/all";
     }
@@ -41,7 +47,10 @@ public class AuthorFormController {
     }
 
     @PostMapping("/edit")
-    public String merge(@ModelAttribute("author") Author author) {
+    public String merge(@ModelAttribute("author") @Valid Author author, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/author/authorForm";
+        }
         authorDao.merge(author);
         return "redirect:/author/form/all";
     }

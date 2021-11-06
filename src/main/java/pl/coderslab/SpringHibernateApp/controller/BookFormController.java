@@ -43,14 +43,14 @@ public class BookFormController {
 
     @PostMapping("/add")
     public String save(@ModelAttribute("book") @Valid Book book, BindingResult result) {
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return "/book/bookForm";
         }
         bookDao.persist(book);
         return "redirect:/book/form/all";
     }
 
-//    @GetMapping("/edit/{id}")
+    //    @GetMapping("/edit/{id}")
 //    public String prepareToEdit(@PathVariable long id, Model model) {
 //        model.addAttribute("book", bookDao.findById(id));
 //        return "/book/bookForm";
@@ -69,7 +69,10 @@ public class BookFormController {
     }
 
     @PostMapping("/edit")
-    public String merge(@ModelAttribute("book") Book book) {
+    public String merge(@ModelAttribute("book") @Valid Book book, BindingResult result) {
+        if (result.hasErrors()) {
+            return "/book/bookForm";
+        }
         bookDao.merge(book);
         return "redirect:/book/form/all";
     }
@@ -79,6 +82,7 @@ public class BookFormController {
         model.addAttribute("book", bookDao.findById(id));
         return "/book/remove";
     }
+
     @PostMapping("/remove")
     public String remove(@RequestParam String confirmed, @RequestParam long id) {
         if ("yes".equals(confirmed)) {

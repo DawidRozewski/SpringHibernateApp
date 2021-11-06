@@ -21,6 +21,8 @@
         <th>Title</th>
         <th>Description</th>
         <th>Authors</th>
+        <th>Rating</th>
+        <th>Pages</th>
         <th>Edit / Remove</th>
     </tr>
 
@@ -32,6 +34,8 @@
             <td> <c:forEach items="${book.authors}" var="a" varStatus="loop">
                 <c:out value="${a.firstName} ${a.lastName}"/><c:if test="${loop.index + 1 lt b.authors.size()}">; </c:if>
             </c:forEach><br/></td>
+            <td>${book.rating}</td>
+            <td>${book.pages}</td>
             <td> <a href="edit?id=${book.id}">Edit</a>
                 <a href="remove?id=${book.id}">Remove</a></td>
         </tr>

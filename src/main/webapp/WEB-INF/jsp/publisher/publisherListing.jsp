@@ -18,6 +18,8 @@
     <tr>
         <th>Id</th>
         <th>Name</th>
+        <th>NIP</th>
+        <th>Regon</th>
         <th>Edit / Remove</th>
     </tr>
 
@@ -25,6 +27,8 @@
         <tr>
             <td>${p.id}</td>
             <td>${p.name}</td>
+            <td>${p.nip}</td>
+            <td>${p.regon}</td>
             <td> <a href="edit?id=${p.id}">Edit</a>
                 <a href="remove?id=${p.id}">Remove</a></td>
         </tr>

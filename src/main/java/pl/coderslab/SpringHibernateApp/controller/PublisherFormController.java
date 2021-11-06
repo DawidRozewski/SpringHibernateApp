@@ -2,9 +2,12 @@ package pl.coderslab.SpringHibernateApp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.SpringHibernateApp.dao.PublisherDao;
 import pl.coderslab.SpringHibernateApp.entity.Publisher;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/publisher/form")
@@ -29,7 +32,10 @@ public class PublisherFormController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("publisher") Publisher publisher) {
+    public String save(@ModelAttribute("publisher") @Valid Publisher publisher, BindingResult result) {
+        if(result.hasErrors()) {
+            return "/publish/publisherForm";
+        }
         publisherDao.persist(publisher);
         return "redirect:/publisher/form/all";
     }
@@ -41,7 +47,10 @@ public class PublisherFormController {
     }
 
     @PostMapping("/edit")
-    public String merge(@ModelAttribute("publisher") Publisher publisher) {
+    public String merge(@ModelAttribute("publisher") @Valid Publisher publisher, BindingResult result) {
+        if(result.hasErrors()) {
+            return "/publisher/publisherForm";
+        }
         publisherDao.merge(publisher);
         return "redirect:/publisher/form/all";
     }

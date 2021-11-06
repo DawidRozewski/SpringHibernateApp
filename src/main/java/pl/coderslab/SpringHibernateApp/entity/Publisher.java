@@ -23,7 +23,7 @@ public class Publisher {
     private String name;
 
     @NIP
-    private int nip;
+    private String nip;
 
     @REGON
     private String regon;
