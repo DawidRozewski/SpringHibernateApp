@@ -2,6 +2,7 @@ package pl.coderslab.SpringHibernateApp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.SpringHibernateApp.dao.AuthorDao;
 import pl.coderslab.SpringHibernateApp.dao.BookDao;
@@ -11,6 +12,7 @@ import pl.coderslab.SpringHibernateApp.entity.Book;
 import pl.coderslab.SpringHibernateApp.entity.Publisher;
 
 import javax.swing.*;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -40,7 +42,10 @@ public class BookFormController {
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("book") Book book) {
+    public String save(@ModelAttribute("book") @Valid Book book, BindingResult result) {
+        if(result.hasErrors()) {
+            return "/book/bookForm";
+        }
         bookDao.persist(book);
         return "redirect:/book/form/all";
     }
