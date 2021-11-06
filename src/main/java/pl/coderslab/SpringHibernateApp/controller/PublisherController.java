@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.SpringHibernateApp.dao.PublisherDao;
-import pl.coderslab.SpringHibernateApp.entity.Book;
 import pl.coderslab.SpringHibernateApp.entity.Publisher;
+import pl.coderslab.SpringHibernateApp.repository.PublisherRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,9 +17,23 @@ import java.util.stream.Collectors;
 public class PublisherController {
 
     private final PublisherDao publisherDao;
+    private final PublisherRepository publisherRepository;
 
-    public PublisherController(PublisherDao publisherDao) {
+    public PublisherController(PublisherDao publisherDao, PublisherRepository publisherRepository) {
         this.publisherDao = publisherDao;
+        this.publisherRepository = publisherRepository;
+    }
+
+    @GetMapping("/findByNip/{nip}")
+    @ResponseBody
+    public String findByNip(@PathVariable String nip) {
+        return publisherRepository.findByNip(nip).toString();
+    }
+
+    @GetMapping("/findByRegon/{regon}")
+    @ResponseBody
+    public String findByRegon(@PathVariable String regon) {
+        return publisherRepository.findByRegon(regon).toString();
     }
 
     @GetMapping("/save")

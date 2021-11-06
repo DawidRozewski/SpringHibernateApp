@@ -1,10 +1,7 @@
 package pl.coderslab.SpringHibernateApp.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.SpringHibernateApp.dao.AuthorDao;
 import pl.coderslab.SpringHibernateApp.dao.BookDao;
 import pl.coderslab.SpringHibernateApp.dao.PublisherDao;
@@ -35,6 +32,61 @@ public class BookController {
         this.categoryRepository = categoryRepository;
         this.bookDao = bookDao;
     }
+
+//    @GetMapping("/test}")
+//    @ResponseBody
+//    public String find(@RequestParam String category,
+//                       @RequestParam String title) {
+//
+//
+//        return bookRepository.findFirstByCategoryAndTitleIs(category, title).toString();
+//
+//    }
+
+    @GetMapping("/find}")
+    @ResponseBody
+    public String findByPublisher() {
+        return bookRepository.findAllByPublisherNameIsLike("HELION").stream()
+                .map(Book::toString)
+                .collect(Collectors.joining("<br />"));
+
+    }
+
+
+
+
+
+    @GetMapping("/byAuthors/{authorId}")
+    @ResponseBody
+    public String findByAuthors(@PathVariable("authorId") int author) {
+        Author author1 = authorDao.findById(author);
+        return bookRepository.findAllByAuthors(author1).stream()
+                .map(Book::toString)
+                .collect(Collectors.joining("<br />"));
+    }
+
+    @GetMapping("/byPublisher/{publisherId}")
+    @ResponseBody
+    public String findByPublisher(@PathVariable("publisherId") int publisherId) {
+        Publisher publisher = publisherDao.findById(publisherId);
+        return bookRepository.findAllByPublisher(publisher).stream()
+                .map(Book::toString)
+                .collect(Collectors.joining("<br />"));
+    }
+
+    @GetMapping("/byRating/{rating}")
+    @ResponseBody
+    public String findByRating(@PathVariable("rating") int rating) {
+
+        return bookRepository.findAllByRating(rating).stream()
+                .map(Book::toString)
+                .collect(Collectors.joining("<br />"));
+    }
+
+
+
+
+
 
     @GetMapping("/byTitle/{title}")
     @ResponseBody
