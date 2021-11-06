@@ -10,7 +10,10 @@ import pl.coderslab.SpringHibernateApp.dao.BookDao;
 import pl.coderslab.SpringHibernateApp.dao.PublisherDao;
 import pl.coderslab.SpringHibernateApp.entity.Author;
 import pl.coderslab.SpringHibernateApp.entity.Book;
+import pl.coderslab.SpringHibernateApp.entity.Category;
 import pl.coderslab.SpringHibernateApp.entity.Publisher;
+import pl.coderslab.SpringHibernateApp.repository.BookRepository;
+import pl.coderslab.SpringHibernateApp.repository.CategoryRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,14 +22,48 @@ import java.util.stream.Collectors;
 @RequestMapping("/book")
 public class BookController {
 
-    private final BookDao bookDao;
     private final PublisherDao publisherDao;
     private final AuthorDao authorDao;
-    public BookController(BookDao bookDao, PublisherDao publisherDao, AuthorDao authorDao) {
-        this.bookDao = bookDao;
+    private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
+    private final BookDao bookDao;
+
+    public BookController(BookDao bookDao, PublisherDao publisherDao, AuthorDao authorDao, BookRepository bookRepository, CategoryRepository categoryRepository, BookDao bookDao1) {
         this.publisherDao = publisherDao;
         this.authorDao = authorDao;
+        this.bookRepository = bookRepository;
+        this.categoryRepository = categoryRepository;
+        this.bookDao = bookDao;
     }
+
+    @GetMapping("/byTitle/{title}")
+    @ResponseBody
+    public String findByTitleRepository(@PathVariable("title") String title) {
+        return bookRepository.findFirstByTitle(title)
+                .map(Book::toString)
+                .orElse("Ksiazki nie znaleziono o zadanym tytule.");
+    }
+
+    @GetMapping("/byCat/{idCategory}")
+    @ResponseBody
+    public String findByCatObject(@PathVariable("idCategory") long idCategory) {
+        Category cat = categoryRepository.getById(idCategory);
+        return bookRepository.findAllByCategory(cat)
+                .stream()
+                .map(Book::toString)
+                .collect(Collectors.joining("<br />"));
+    }
+
+    @GetMapping("/byCategoryId/{idCategory}")
+    @ResponseBody
+    public String findByCatId(@PathVariable("idCategory") long idCategory) {
+        return bookRepository.findAllByCategory_Id(idCategory)
+                .stream()
+                .map(Book::toString)
+                .collect(Collectors.joining("<br />"));
+    }
+
+
 
     @GetMapping("/save")
     @ResponseBody

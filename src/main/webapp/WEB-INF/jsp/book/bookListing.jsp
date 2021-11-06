@@ -23,6 +23,7 @@
         <th>Authors</th>
         <th>Rating</th>
         <th>Pages</th>
+        <th>Category</th>
         <th>Edit / Remove</th>
     </tr>
 
@@ -36,6 +37,7 @@
             </c:forEach><br/></td>
             <td>${book.rating}</td>
             <td>${book.pages}</td>
+            <td>${book.category}</td>
             <td> <a href="edit?id=${book.id}">Edit</a>
                 <a href="remove?id=${book.id}">Remove</a></td>
         </tr>

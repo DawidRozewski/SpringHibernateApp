@@ -44,5 +44,8 @@ public class Book {
     @Min(1)
     private int pages;
 
+    @ManyToOne
+    private Category category;
+
 
 }

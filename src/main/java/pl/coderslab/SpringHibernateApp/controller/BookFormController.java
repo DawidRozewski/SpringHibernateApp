@@ -10,8 +10,8 @@ import pl.coderslab.SpringHibernateApp.dao.PublisherDao;
 import pl.coderslab.SpringHibernateApp.entity.Author;
 import pl.coderslab.SpringHibernateApp.entity.Book;
 import pl.coderslab.SpringHibernateApp.entity.Publisher;
+import pl.coderslab.SpringHibernateApp.repository.BookRepository;
 
-import javax.swing.*;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -20,18 +20,18 @@ import java.util.List;
 public class BookFormController {
 
     private final PublisherDao publisherDao;
-    private final BookDao bookDao;
     private final AuthorDao authorDao;
+    private final BookRepository bookRepository;
 
-    public BookFormController(PublisherDao publisherDao, BookDao bookDao, AuthorDao authorDao) {
+    public BookFormController(PublisherDao publisherDao, BookDao bookDao, AuthorDao authorDao, BookRepository bookRepository) {
         this.publisherDao = publisherDao;
-        this.bookDao = bookDao;
         this.authorDao = authorDao;
+        this.bookRepository = bookRepository;
     }
 
     @GetMapping("/all")
     public String showAllBooks(Model model) {
-        model.addAttribute("books", bookDao.findAll());
+        model.addAttribute("books", bookRepository.findAll());
         return "/book/bookListing";
     }
 
@@ -46,25 +46,13 @@ public class BookFormController {
         if (result.hasErrors()) {
             return "/book/bookForm";
         }
-        bookDao.persist(book);
+        bookRepository.save(book);
         return "redirect:/book/form/all";
     }
 
-    //    @GetMapping("/edit/{id}")
-//    public String prepareToEdit(@PathVariable long id, Model model) {
-//        model.addAttribute("book", bookDao.findById(id));
-//        return "/book/bookForm";
-//    }
-//
-//    @PostMapping("/edit/{id}")
-//    public String merge(@ModelAttribute("book") @PathVariable long id) {
-//        bookDao.merge(bookDao.findById(id));
-//        return "redirect:/book/form/all";
-//    }
-//
     @GetMapping("/edit")
     public String prepareToEdit(@RequestParam long id, Model model) {
-        model.addAttribute("book", bookDao.findById(id));
+        model.addAttribute("book", bookRepository.getById(id));
         return "/book/bookForm";
     }
 
@@ -73,20 +61,20 @@ public class BookFormController {
         if (result.hasErrors()) {
             return "/book/bookForm";
         }
-        bookDao.merge(book);
+        bookRepository.save(book);
         return "redirect:/book/form/all";
     }
 
     @GetMapping("/remove")
     public String prepareToRemove(@RequestParam long id, Model model) {
-        model.addAttribute("book", bookDao.findById(id));
+        model.addAttribute("book", bookRepository.getById(id));
         return "/book/remove";
     }
 
     @PostMapping("/remove")
     public String remove(@RequestParam String confirmed, @RequestParam long id) {
         if ("yes".equals(confirmed)) {
-            bookDao.remove(id);
+            bookRepository.deleteById(id);
         }
         return "redirect:/book/form/all";
     }
