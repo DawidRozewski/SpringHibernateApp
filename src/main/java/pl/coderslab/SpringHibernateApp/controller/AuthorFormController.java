@@ -1,11 +1,13 @@
 package pl.coderslab.SpringHibernateApp.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.SpringHibernateApp.entity.Author;
 import pl.coderslab.SpringHibernateApp.repository.AuthorRepository;
+import pl.coderslab.SpringHibernateApp.search.AuthorSearchMode;
 
 import javax.validation.Valid;
 
@@ -20,8 +22,24 @@ public class AuthorFormController {
     }
 
     @GetMapping("/all")
-    public String all(Model model) {
-        model.addAttribute("authors", authorRepository.findAll());
+    public String all(Model model,
+                      @RequestParam(value = "field", required = false) AuthorSearchMode field,
+                      @RequestParam(value = "query", required = false) String query) {
+        if (field != null && StringUtils.isNotEmpty(query)) {
+            switch (field) {
+                case EMAIL:
+                    model.addAttribute("authors", authorRepository.findByEmail(query));
+                    break;
+                case PESEL:
+                    model.addAttribute("authors", authorRepository.findByPesel(query));
+                    break;
+            }
+            model.addAttribute("selectedField", field);
+        } else {
+            model.addAttribute("authors", authorRepository.findAll());
+        }
+        model.addAttribute("query", query);
+        model.addAttribute("searchMode", AuthorSearchMode.values());
         return "/author/authorListing";
     }
 

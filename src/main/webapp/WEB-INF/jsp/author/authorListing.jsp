@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@include file="../common/search.jsp"%>
 
 <head>
     <title>Authors</title>
@@ -38,6 +39,5 @@
 <br/>
 <strong> <a href="add">Add new author</a></strong><br/><br/>
 <strong> <a href="http://localhost:8080/">Main page</a></strong><br/>
-<%@include file="../common/search.jsp"%>
 
 </body>

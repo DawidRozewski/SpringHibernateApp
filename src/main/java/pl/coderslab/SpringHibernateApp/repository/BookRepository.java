@@ -27,10 +27,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
     List<Book> findAllByPublisherNameIsLike(String publisher);
 
-    List<Book> findWithAnyPublisher();
-
-
-
     Book findTopByCategoryOrderByTitle(Category category);
 
 }

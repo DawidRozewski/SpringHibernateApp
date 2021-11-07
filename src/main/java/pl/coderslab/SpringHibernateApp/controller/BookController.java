@@ -6,7 +6,6 @@ import pl.coderslab.SpringHibernateApp.entity.Author;
 import pl.coderslab.SpringHibernateApp.entity.Book;
 import pl.coderslab.SpringHibernateApp.entity.Category;
 import pl.coderslab.SpringHibernateApp.entity.Publisher;
-import pl.coderslab.SpringHibernateApp.exceptions.NotFoundException;
 import pl.coderslab.SpringHibernateApp.repository.AuthorRepository;
 import pl.coderslab.SpringHibernateApp.repository.BookRepository;
 import pl.coderslab.SpringHibernateApp.repository.CategoryRepository;
@@ -138,16 +137,16 @@ public class BookController {
                 .collect(Collectors.joining("<br />"));
     }
 
-    @GetMapping("/publisher/any")
-    @ResponseBody
-    public String findWithAnyPublisher() {
-        List<Book> bookList = bookRepository.findWithAnyPublisher();
-        return bookList.stream()
-                .map(book -> book.getId() +
-                        ": " + book.getTitle() +
-                        " " + book.getPublisher())
-                .collect(Collectors.joining("<br />"));
-    }
+//    @GetMapping("/publisher/any")
+//    @ResponseBody
+//    public String findWithAnyPublisher() {
+//        List<Book> bookList = bookRepository.findWithAnyPublisher();
+//        return bookList.stream()
+//                .map(book -> book.getId() +
+//                        ": " + book.getTitle() +
+//                        " " + book.getPublisher())
+//                .collect(Collectors.joining("<br />"));
+//    }
 
     @GetMapping("/publisher/{publisherId}")
     @ResponseBody
