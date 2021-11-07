@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.SpringHibernateApp.dao.AuthorDao;
 import pl.coderslab.SpringHibernateApp.entity.Author;
+import pl.coderslab.SpringHibernateApp.repository.AuthorRepository;
 
 import javax.validation.Valid;
 
@@ -13,15 +13,15 @@ import javax.validation.Valid;
 @RequestMapping("/author/form")
 public class AuthorFormController {
 
-    private final AuthorDao authorDao;
+    private final AuthorRepository authorRepository;
 
-    public AuthorFormController(AuthorDao authorDao) {
-        this.authorDao = authorDao;
+    public AuthorFormController(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
     }
 
     @GetMapping("/all")
     public String all(Model model) {
-        model.addAttribute("authors", authorDao.findAll());
+        model.addAttribute("authors", authorRepository.findAll());
         return "/author/authorListing";
     }
 
@@ -36,13 +36,13 @@ public class AuthorFormController {
         if (result.hasErrors()) {
             return "/author/authorForm";
         }
-        authorDao.persist(author);
+        authorRepository.save(author);
         return "redirect:/author/form/all";
     }
 
     @GetMapping("/edit")
     public String prepareEdit(@RequestParam long id, Model model) {
-        model.addAttribute("author", authorDao.findById(id));
+        model.addAttribute("author", authorRepository.getById(id));
         return "/author/authorForm";
     }
 
@@ -51,20 +51,20 @@ public class AuthorFormController {
         if (result.hasErrors()) {
             return "/author/authorForm";
         }
-        authorDao.merge(author);
+        authorRepository.save(author);
         return "redirect:/author/form/all";
     }
 
     @GetMapping("/remove")
     public String prepareRemove(@RequestParam long id, Model model) {
-        model.addAttribute("author", authorDao.findById(id));
+        model.addAttribute("author", authorRepository.getById(id));
         return "/author/remove";
     }
 
     @PostMapping("/remove")
     public String remove(@RequestParam String confirmed, @RequestParam long id) {
         if ("yes".equals(confirmed)) {
-            authorDao.remove(id);
+            authorRepository.deleteById(id);
         }
         return "redirect:/author/form/all";
     }

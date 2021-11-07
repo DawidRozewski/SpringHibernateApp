@@ -4,13 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.SpringHibernateApp.dao.AuthorDao;
-import pl.coderslab.SpringHibernateApp.dao.BookDao;
-import pl.coderslab.SpringHibernateApp.dao.PublisherDao;
 import pl.coderslab.SpringHibernateApp.entity.Author;
 import pl.coderslab.SpringHibernateApp.entity.Book;
 import pl.coderslab.SpringHibernateApp.entity.Publisher;
+import pl.coderslab.SpringHibernateApp.repository.AuthorRepository;
 import pl.coderslab.SpringHibernateApp.repository.BookRepository;
+import pl.coderslab.SpringHibernateApp.repository.PublisherRepository;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,16 +17,16 @@ import java.util.List;
 @Controller
 @RequestMapping("/book/form")
 public class BookFormController {
-
-    private final PublisherDao publisherDao;
-    private final AuthorDao authorDao;
+    private final PublisherRepository publisherRepository;
+    private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
 
-    public BookFormController(PublisherDao publisherDao, BookDao bookDao, AuthorDao authorDao, BookRepository bookRepository) {
-        this.publisherDao = publisherDao;
-        this.authorDao = authorDao;
+    public BookFormController(PublisherRepository publisherRepository, AuthorRepository authorRepository, BookRepository bookRepository) {
+        this.publisherRepository = publisherRepository;
+        this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
     }
+
 
     @GetMapping("/all")
     public String showAllBooks(Model model) {
@@ -82,12 +81,12 @@ public class BookFormController {
 
     @ModelAttribute("publishers")
     public List<Publisher> publishers() {
-        return publisherDao.findAll();
+        return publisherRepository.findAll();
     }
 
     @ModelAttribute("authors")
     public List<Author> authors() {
-        return authorDao.findAll();
+        return authorRepository.findAll();
     }
 
 

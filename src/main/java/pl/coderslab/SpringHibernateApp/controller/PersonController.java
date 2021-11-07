@@ -3,17 +3,18 @@ package pl.coderslab.SpringHibernateApp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.SpringHibernateApp.dao.PersonDao;
 import pl.coderslab.SpringHibernateApp.entity.Person;
 import pl.coderslab.SpringHibernateApp.entity.PersonDetails;
+import pl.coderslab.SpringHibernateApp.repository.PersonRepository;
 
 @Controller
 @RequestMapping("/person")
 public class PersonController {
 
-    private final PersonDao personDao;
-    public PersonController(PersonDao personDao) {
-        this.personDao = personDao;
+    private final PersonRepository personRepository;
+
+    public PersonController(PersonRepository personRepository) {
+        this.personRepository = personRepository;
     }
 
     @GetMapping("/form")
@@ -25,11 +26,9 @@ public class PersonController {
     @PostMapping("/form")
     @ResponseBody
     public String saveForm(@ModelAttribute("person") Person testPerson) {
-        personDao.persist(testPerson);
+        personRepository.save(testPerson);
         return "Zapisano osobe.";
     }
-
-
 
 
 // METODY DO OBLSUGI PRZEZ @RequestParam
@@ -67,7 +66,7 @@ public class PersonController {
         person.setLogin("500kg");
         person.setPassword("tajne");
         person.setEmail("tajnyEmail@gmail.com");
-        personDao.persist(person);
+        personRepository.save(person);
         return person.toString();
 
     }
@@ -75,14 +74,14 @@ public class PersonController {
     @GetMapping("/find/{id}")
     @ResponseBody
     public String findById(@PathVariable long id) {
-        Person person = personDao.findById(id);
+        Person person = personRepository.getById(id);
         return person.toString();
     }
 
     @GetMapping("/update/{id}/{login}")
     @ResponseBody
     public String merge(@PathVariable long id, @PathVariable String login) {
-        Person person = personDao.findById(id);
+        Person person = personRepository.getById(id);
         person.setLogin(login);
         return person.toString();
     }
@@ -90,9 +89,8 @@ public class PersonController {
     @GetMapping("/remove/{id}")
     @ResponseBody
     public String remove(@PathVariable long id) {
-        personDao.remove(id);
+        personRepository.deleteById(id);
         return "Usunieto osobe";
     }
-
 
 }
