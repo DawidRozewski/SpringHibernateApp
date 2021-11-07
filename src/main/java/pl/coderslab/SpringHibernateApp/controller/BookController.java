@@ -31,6 +31,20 @@ public class BookController {
     }
 
 
+    @GetMapping("/ratingBetween/{first}/{second}")
+    @ResponseBody
+    public String getByRating(@PathVariable int first,
+                              @PathVariable int second) {
+
+        return bookRepository.methodToFindBookByRating(first, second).stream()
+                .map(Book::toString)
+                .collect(Collectors.joining("<br />"));
+    }
+
+
+
+
+
     @GetMapping("/find}")
     @ResponseBody
     public String findByPublisher() {
