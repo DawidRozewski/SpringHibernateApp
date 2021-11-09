@@ -29,7 +29,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> methodToFindByPublisher(@Param("publisher") String publisher);
 
     @Query(value = "select * from books where category_id = :givenCategory order by title limit 1", nativeQuery = true)
-    Book getFirstBookFromCatergorySortingByTitle(@Param("givenCategory") Category category);
+    Book getFirstBookFromCategorySortingByTitle(@Param("givenCategory") Category category);
 
     Optional<Book> findFirstByTitle(String title);
 
