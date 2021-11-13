@@ -14,7 +14,7 @@
 	<name>SpringHibernateApp</name>
 	<description>Project for module 6 purposes</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
