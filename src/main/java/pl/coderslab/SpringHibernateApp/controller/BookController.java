@@ -41,10 +41,6 @@ public class BookController {
                 .collect(Collectors.joining("<br />"));
     }
 
-
-
-
-
     @GetMapping("/find}")
     @ResponseBody
     public String findByPublisher() {
@@ -101,7 +97,8 @@ public class BookController {
         Author author = authorRepository.getById(2L);
         Author author1 = authorRepository.getById(3L);
         Book book = new Book();
-        book.setAuthors(List.of(author, author1));
+        book.getAuthors().add(author);
+        book.getAuthors().add(author1);
         book.setTitle("Thinking in Java");
         book.setRating(10);
         book.setDescription("Amazing book");
